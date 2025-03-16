@@ -1,0 +1,120 @@
+# <-- Important! Change this for each experiment.
+experiment:
+    instruct_status: "ReplaceMeInScript"
+    exp_name: "InBatch"
+    description: "${model.name} ${model.size} ${experiment.instruct_status} ${experiment.exp_name}"
+    path_suffix: "${model.short_name}/${model.size}/${experiment.instruct_status}/${experiment.exp_name}/"
+
+# Embeddings settings
+embed_config:
+    # Directory to save the output of the embedding
+    embed_dir_name: "embed" # embeddings will be saved to uniir_dir/embed/experiment.path_suffix
+
+    # Using half precision to speed up
+    use_fp16: True
+
+    # For Retrieval Evaluation
+    train_datasets_config:
+      enable_embed: False
+      datasets_name:
+      correspond_cand_pools_name:
+
+    val_datasets_config:
+        enable_embed: False
+        datasets_name:
+        correspond_cand_pools_name:
+
+    test_datasets_config:
+        enable_embed: True
+        datasets_name:
+            - "visualnews_task0"
+            - "mscoco_task0"
+            - "fashion200k_task0"
+            - "webqa_task1"
+            - "edis_task2"
+            - "webqa_task2"
+            - "visualnews_task3"
+            - "mscoco_task3"
+            - "fashion200k_task3"
+            - "nights_task4"
+            - "oven_task6"
+            - "infoseek_task6"
+            - "fashioniq_task7"
+            - "cirr_task7"
+            - "oven_task8"
+            - "infoseek_task8"
+        correspond_cand_pools_name:
+            - "visualnews_task0"
+            - "mscoco_task0_test"   # <-- MSCOCO is a special case, has separate pools for val and test
+            - "fashion200k_task0"
+            - "webqa_task1"
+            - "edis_task2"
+            - "webqa_task2"
+            - "visualnews_task3"
+            - "mscoco_task3_test"  # <-- MSCOCO is a special case, has separate pools for val and test
+            - "fashion200k_task3"
+            - "nights_task4"
+            - "oven_task6"
+            - "infoseek_task6"
+            - "fashioniq_task7"
+            - "cirr_task7"
+            - "oven_task8"
+            - "infoseek_task8"
+
+    cand_pools_config:
+        enable_embed: True
+        embed_union_pool: True  # <-- True for union pool.
+        cand_pools_name_to_embed:
+            - "visualnews_task0"
+            - "mscoco_task0_test"   # <-- MSCOCO is a special case, has separate pools for val and test
+            - "fashion200k_task0"
+            - "webqa_task1"
+            - "edis_task2"
+            - "webqa_task2"
+            - "visualnews_task3"
+            - "mscoco_task3_test"  # <-- MSCOCO is a special case, has separate pools for val and test
+            - "fashion200k_task3"
+            - "nights_task4"
+            - "oven_task6"
+            - "infoseek_task6"
+            - "fashioniq_task7"
+            - "cirr_task7"
+            - "oven_task8"
+            - "infoseek_task8"
+
+# DataLoader settings
+dataloader_config:
+    num_workers: 5
+    batch_size: 1048  # Inference batch size
+
+# Model settings
+model:
+    name: "CLIPFeatureFusion"  # Change to your model name # <-- Important!
+    short_name: "CLIP_FF"
+    size: "Large"
+
+    clip_vision_model_name: "ViT-L/14"
+    pretrained_clip_model_dir: "checkpoint/CLIP/" # Relative to uniir_dir
+
+    ckpt_config:
+        ckpt_dir: "checkpoint/${experiment.path_suffix}" # Checkpoint will be saved to uniir_dir/checkpoint/experiment.path_suffix
+        ckpt_name: "clip_ff_large.pth"
+
+# Dataset settings
+data_config:
+    image_size: 224, 224
+    shuffle_cand: True  # Used for selecting the positive candidate
+
+    # Relative to mbeir_data_dir
+    train_dir_name: "query/train"
+    val_dir_name: "query/val"
+    test_dir_name: "query/test"
+    cand_pool_dir_name: "cand_pool/local"
+    query_instruct_path: "instructions/query_instructions.tsv"
+
+# Distributed training settings
+dist_config:
+    dist_url: "env://"
+
+# Random seed
+seed: 2023

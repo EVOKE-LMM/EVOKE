@@ -1,0 +1,45 @@
+# <-- Important! Change this for each experiment.
+experiment:
+    instruct_status: "ReplaceMeInScript"
+    exp_name: "InBatch"
+    description: "${model.name} ${model.size} ${experiment.instruct_status} ${experiment.exp_name}"
+    path_suffix: "${model.short_name}/${model.size}/${experiment.instruct_status}/${experiment.exp_name}/"
+
+# Index settings
+index_config:
+
+    faiss_config:
+        idx_type: Flat
+        dim: 768
+        metric: METRIC_INNER_PRODUCT
+
+    # Path
+    embed_dir_name: "embed"  # embeddings will be loaded from uniir_dir/embed/experiment.path_suffix
+    index_dir_name: "index"   # index will be saved to uniir_dir/index/experiment.path_suffix
+
+    cand_pools_config:
+        enable_idx: True
+        cand_pools_name_to_idx:  # <-- Important! Comment the name you don't want to index.
+            - "visualnews_task0"
+            - "mscoco_task0_test"   # <-- MSCOCO is a special case, has separate pools for val and test
+            - "fashion200k_task0"
+            - "webqa_task1"
+            - "edis_task2"
+            - "webqa_task2"
+            - "visualnews_task3"
+            - "mscoco_task3_test"  # <-- MSCOCO is a special case, has separate pools for val and test
+            - "fashion200k_task3"
+            - "nights_task4"
+            - "oven_task6"
+            - "infoseek_task6"
+            - "fashioniq_task7"
+            - "cirr_task7"
+            - "oven_task8"
+            - "infoseek_task8"
+            - "UNION"
+
+# Model settings
+model:
+    name: "BLIPScoreFusion"
+    short_name: "BLIP_SF"
+    size: "Base"

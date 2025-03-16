@@ -1,0 +1,13 @@
+Retriever: Retrieving for query:cirr_task7 | split:test | from cand_pool:cirr_task7
+Retriever: Loaded 4170 queries from /home/du/new_models/TIGER-Lab/M-BEIR/qrels/test/mbeir_cirr_task7_test_qrels.txt
+Retriever: Average number of relevant documents per query: 1.01
+Retriever: Searching with k=10
+Faiss: loaded query embeddings from /home/du/pan1/new_knowledge/real_new/mmrag/UniIR/embed/CLIP_SF/Large/Instruct/InBatch/test/mbeir_cirr_task7_test_embed.npy with shape: (4170, 768)
+Faiss: loaded index from /home/du/pan1/new_knowledge/real_new/mmrag/UniIR/index/CLIP_SF/Large/Instruct/InBatch/cand_pool/mbeir_cirr_task7_cand_pool.index
+Faiss: Number of documents in the index: 21551
+Faiss: Number of GPUs used for searching: 1
+Faiss: query_embeddings_batch.shape: (4170, 768)
+Retriever: Run file saved to /home/du/pan1/new_knowledge/real_new/mmrag/UniIR/retrieval_results/CLIP_SF/Large/Instruct/InBatch/run_files/mbeir_cirr_task7_single_pool_test_k10_run.txt
+Retriever: Mean Recall@1: 0.093
+Retriever: Mean Recall@5: 0.4528
+Retriever: Mean Recall@10: 0.5839

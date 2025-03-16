@@ -1,0 +1,38 @@
+experiment:
+  description: ${model.name} ${model.size} ${experiment.instruct_status} ${experiment.exp_name}
+  exp_name: InBatch
+  instruct_status: Instruct
+  path_suffix: ${model.short_name}/${model.size}/${experiment.instruct_status}/${experiment.exp_name}/
+model:
+  name: CLIPScoreFusion
+  short_name: CLIP_SF
+  size: Large
+retrieval_config:
+  candidate_dir_name: null
+  embed_dir_name: embed
+  index_dir_name: index
+  qrel_dir_name: qrels
+  query_dir_name: null
+  raw_retrieval: false
+  results_dir_name: retrieval_results
+  retrieve_image_text_pairs: false
+  test_datasets_config:
+    correspond_cand_pools_name:
+    - cirr_task7
+    correspond_metrics_name:
+    - Recall@1, Recall@5, Recall@10
+    correspond_qrels_name:
+    - cirr_task7
+    datasets_name:
+    - cirr_task7
+    enable_retrieve: true
+  train_datasets_config:
+    correspond_cand_pools_name: null
+    datasets_name: null
+    enable_retrieve: false
+  val_datasets_config:
+    correspond_cand_pools_name: null
+    correspond_qrels_name: null
+    datasets_name: null
+    enable_retrieve: false
+  write_to_tsv: true

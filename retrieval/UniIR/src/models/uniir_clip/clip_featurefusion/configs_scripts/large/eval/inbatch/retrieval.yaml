@@ -1,0 +1,187 @@
+# <-- Important! Change this for each experiment.
+experiment:
+    instruct_status: "ReplaceMeInScript"
+    exp_name: "InBatch"
+    description: "${model.name} ${model.size} ${experiment.instruct_status} ${experiment.exp_name}"
+    path_suffix: "${model.short_name}/${model.size}/${experiment.instruct_status}/${experiment.exp_name}/"
+
+retrieval_config:
+    # Relative to uniir_dir
+    embed_dir_name: "embed"  # embeddings will be loaded from uniir_dir/embed/experiment.path_suffix
+    index_dir_name: "index"   # index will be loaded from uniir_dir/index/experiment.path_suffix
+    results_dir_name: "retrieval_results" # results will be saved to uniir_dir/retrieval_results/experiment.path_suffix
+
+    # Relative to mbeir_data_dir
+    qrel_dir_name: "qrels/test"   # qrels will be loaded from mbeir_data_dir/qrels
+
+    write_to_tsv: True  # Write the results to csv files
+
+    # For using retrieved candidates in downstream applications like RAG.
+    raw_retrieval: False # Store raw queries and their retrieved candidates
+    retrieve_image_text_pairs: False # During raw retrieval always retrieve imge-text pairs.
+    query_dir_name: # Raw queries will be loaded from mbeir_data_dir/query_dir_name
+    candidate_dir_name: # Raw retrieved candidates will be loaded from mbeir_data_dir/cand_pool/candidate_dir_name
+
+    # For Retrieval Evaluation
+    train_datasets_config:
+        enable_retrieve: False
+        datasets_name:
+        correspond_cand_pools_name:
+
+    val_datasets_config:
+        enable_retrieve: False
+        datasets_name:
+        correspond_cand_pools_name:
+        correspond_qrels_name:
+
+    test_datasets_config:
+        enable_retrieve: True
+        datasets_name:
+            - "visualnews_task0"
+            - "mscoco_task0"
+            - "fashion200k_task0"
+            - "webqa_task1"
+            - "edis_task2"
+            - "webqa_task2"
+            - "visualnews_task3"
+            - "mscoco_task3"
+            - "fashion200k_task3"
+            - "nights_task4"
+            - "oven_task6"
+            - "infoseek_task6"
+            - "fashioniq_task7"
+            - "cirr_task7"
+            - "oven_task8"
+            - "infoseek_task8"
+            # Start from here, we evaluate on the union pool
+            # comment the below lines if you don't want to evaluate on union pool
+            - "visualnews_task0"
+            - "mscoco_task0"
+            - "fashion200k_task0"
+            - "webqa_task1"
+            - "edis_task2"
+            - "webqa_task2"
+            - "visualnews_task3"
+            - "mscoco_task3"
+            - "fashion200k_task3"
+            - "nights_task4"
+            - "oven_task6"
+            - "infoseek_task6"
+            - "fashioniq_task7"
+            - "cirr_task7"
+            - "oven_task8"
+            - "infoseek_task8"
+
+        correspond_cand_pools_name:
+            - "visualnews_task0"
+            - "mscoco_task0_test"   # <-- MSCOCO is a special case, has separate pools for val and test
+            - "fashion200k_task0"
+            - "webqa_task1"
+            - "edis_task2"
+            - "webqa_task2"
+            - "visualnews_task3"
+            - "mscoco_task3_test"  # <-- MSCOCO is a special case, has separate pools for val and test
+            - "fashion200k_task3"
+            - "nights_task4"
+            - "oven_task6"
+            - "infoseek_task6"
+            - "fashioniq_task7"
+            - "cirr_task7"
+            - "oven_task8"
+            - "infoseek_task8"
+            # Start from here, we evaluate on the union pool
+            # comment the below lines if you don't want to evaluate on union pool
+            - "UNION"
+            - "UNION"
+            - "UNION"
+            - "UNION"
+            - "UNION"
+            - "UNION"
+            - "UNION"
+            - "UNION"
+            - "UNION"
+            - "UNION"
+            - "UNION"
+            - "UNION"
+            - "UNION"
+            - "UNION"
+            - "UNION"
+            - "UNION"
+
+        correspond_qrels_name:
+            - "visualnews_task0"
+            - "mscoco_task0"
+            - "fashion200k_task0"
+            - "webqa_task1"
+            - "edis_task2"
+            - "webqa_task2"
+            - "visualnews_task3"
+            - "mscoco_task3"
+            - "fashion200k_task3"
+            - "nights_task4"
+            - "oven_task6"
+            - "infoseek_task6"
+            - "fashioniq_task7"
+            - "cirr_task7"
+            - "oven_task8"
+            - "infoseek_task8"
+            # Start from here, we evaluate on the union pool
+            # comment the below lines if you don't want to evaluate on union pool
+            - "visualnews_task0"
+            - "mscoco_task0"
+            - "fashion200k_task0"
+            - "webqa_task1"
+            - "edis_task2"
+            - "webqa_task2"
+            - "visualnews_task3"
+            - "mscoco_task3"
+            - "fashion200k_task3"
+            - "nights_task4"
+            - "oven_task6"
+            - "infoseek_task6"
+            - "fashioniq_task7"
+            - "cirr_task7"
+            - "oven_task8"
+            - "infoseek_task8"
+
+        correspond_metrics_name:
+            - "Recall@1, Recall@5, Recall@10"
+            - "Recall@1, Recall@5, Recall@10"
+            - "Recall@10, Recall@20, Recall@50"
+            - "Recall@1, Recall@5, Recall@10"
+            - "Recall@1, Recall@5, Recall@10"
+            - "Recall@1, Recall@5, Recall@10"
+            - "Recall@1, Recall@5, Recall@10"
+            - "Recall@1, Recall@5, Recall@10"
+            - "Recall@10, Recall@20, Recall@50"
+            - "Recall@1, Recall@5, Recall@10"
+            - "Recall@1, Recall@5, Recall@10"
+            - "Recall@1, Recall@5, Recall@10"
+            - "Recall@10, Recall@20, Recall@50"
+            - "Recall@1, Recall@5, Recall@10"
+            - "Recall@1, Recall@5, Recall@10"
+            - "Recall@1, Recall@5, Recall@10"
+            # Start from here, we evaluate on the union pool
+            # comment the below lines if you don't want to evaluate on union pool
+            - "Recall@1, Recall@5, Recall@10"
+            - "Recall@1, Recall@5, Recall@10"
+            - "Recall@10, Recall@20, Recall@50"
+            - "Recall@1, Recall@5, Recall@10"
+            - "Recall@1, Recall@5, Recall@10"
+            - "Recall@1, Recall@5, Recall@10"
+            - "Recall@1, Recall@5, Recall@10"
+            - "Recall@1, Recall@5, Recall@10"
+            - "Recall@10, Recall@20, Recall@50"
+            - "Recall@1, Recall@5, Recall@10"
+            - "Recall@1, Recall@5, Recall@10"
+            - "Recall@1, Recall@5, Recall@10"
+            - "Recall@10, Recall@20, Recall@50"
+            - "Recall@1, Recall@5, Recall@10"
+            - "Recall@1, Recall@5, Recall@10"
+            - "Recall@1, Recall@5, Recall@10"
+
+# Model settings
+model:
+    name: "CLIPFeatureFusion"  # Change to your model name # <-- Important!
+    short_name: "CLIP_FF"
+    size: "Large"

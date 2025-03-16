@@ -1,0 +1,80 @@
+# Train CLIPScoreFusion model on MBEIR dataset
+# <-- Important! Change this for each experiment.
+experiment:
+    instruct_status: "Instruct"
+    exp_name: "InBatch"
+    description: "${model.name} ${model.size} ${experiment.instruct_status} ${experiment.exp_name}"
+    path_suffix: "${model.short_name}/${model.size}/${experiment.instruct_status}/${experiment.exp_name}/"
+
+# WandB settings
+wandb_config:
+    enabled: True
+    experiment_name: "${experiment.description}"
+
+# Logger settings
+logger_config:
+    logger_out_dir: "logger/${experiment.path_suffix}"  # logger will be saved to uniir_dir/logger/experiment.path_suffix
+    logger_out_file_name: "train.log"  #TODO: add date to log file name
+
+# Dataset settings
+data_config:
+    image_size: 224, 224
+    hard_neg_num: 0
+    in_batch_neg_num: 0  # TODO: Move this to model config
+    shuffle_cand: True
+    
+    returns: null
+
+    # Relative to mbeir_data_dir
+    enable_query_instruct: True
+    query_instruct_path: "instructions/query_instructions.tsv"
+
+    train_query_data_path: "query/union_train/mbeir_union_up_train.jsonl"
+    train_cand_pool_path: "cand_pool/global/mbeir_union_train_cand_pool.jsonl"
+
+    val_query_data_path: "query/union_val/mbeir_union_val.jsonl"
+    val_cand_pool_path: "cand_pool/global/mbeir_union_val_cand_pool.jsonl"
+
+# DataLoader settings
+dataloader_config:
+    num_workers: 5
+    train_batch_size: 105  # 78597MiB / 81559MiB
+    valid_batch_size: 2048
+
+# Trainer settings
+trainer_config:
+    gradient_accumulation_steps: 1
+    num_train_epochs: 20
+    learning_rate: 1e-5
+    warmup_steps: 0
+    eval_steps: 500
+    print_freq: 50
+
+# Evaluator settings
+evaluator:
+    enable_eval: False
+    eval_freq: 1
+    print_freq: 10
+
+# Model settings
+model:
+    name: "CLIPScoreFusion"
+    short_name: "CLIP_SF"
+    size: "Large"
+
+    clip_vision_model_name: "ViT-L/14"
+    pretrained_clip_model_dir: "checkpoint/CLIP/" # CLIP will be loaded from uniir_dir/checkpoint/CLIP
+    gather_embeddings: True
+
+    ckpt_config:
+        ckpt_dir: "checkpoint/${experiment.path_suffix}" # ckpt will be saved to uniir_dir/checkpoint/experiment.path_suffix
+        resume_training: False
+        ckpt_name: ""
+
+
+# Random seed
+seed: 2023
+
+# Distributed training settings
+dist_config:
+    dist_url: "env://"

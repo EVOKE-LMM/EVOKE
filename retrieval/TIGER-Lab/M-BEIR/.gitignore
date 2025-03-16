@@ -1,0 +1,7 @@
+# Ignore specific directories
+src_data/
+mbeir_images/
+train/HardNegs/
+
+# Ignore the specific tar.gz file
+mbeir_images.tar.gz
