@@ -22,12 +22,15 @@
 
 ## 🤗EVOKE
 
-
+<div align="center">   <img src="fig/motivation.jpg" width="650px"> </div>
 
 To evaluate evolving knowledge injection in LMMs, we propose a pipeline to automatically collect evolving knowledge, constructing the <u><b>EVO</b></u>lving <u><b>K</b></u>nowledg<u><b>E</b></u> <b>(EVOKE)</b> benchmark.
 
+<div align="center">   <img src="fig/data_construction.png" width="650px"> </div>
 
 You can download data 🤗 [Huggingface Dataset](https://huggingface.co/datasets/kailinjiang/EVOKE). And the expected structure of files is:
+
+<div align="center">   <img src="fig/data_display.png" width="650px"> </div>
 
 ```text
 EVOKE
@@ -76,7 +79,7 @@ python retrieval/retrieval_UniIR.py
 ```
 
 
-<div align="center">   <img src="assets/punkt.png" width="650px"> </div>
+
 
 
 
