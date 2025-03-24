@@ -119,7 +119,7 @@ python Qwen-VL/eval_mm/evaluate_vqa.py --test_type UniIR --few-shot 1
 python Qwen-VL/eval_mm/evaluate_vqa.py --test_type ground_truth --few-shot 1
 
 
-
+Evaluation
 step1
 python evaluation/eval_acc_f1.py
 
