@@ -102,9 +102,24 @@ https://github.com/QwenLM/Qwen-VL
 
 
 
-## 🤖Evaluation
+## 🤖Inference and Evaluation
 
 ```shell
+Inference + LLaVA
+python LLaVA/mm_rag_llava_inference.py --test_type text_only --top_k 1
+python LLaVA/mm_rag_llava_inference.py --test_type image_only --top_k 1
+python LLaVA/mm_rag_llava_inference.py --test_type UniIR --top_k 1
+python LLaVA/mm_rag_llava_inference.py --test_type ground_truth --top_k 1
+
+
+Inference + Qwen-VL-Chat
+python Qwen-VL/eval_mm/evaluate_vqa.py --test_type text_only --few-shot 1
+python Qwen-VL/eval_mm/evaluate_vqa.py --test_type image_only --few-shot 1
+python Qwen-VL/eval_mm/evaluate_vqa.py --test_type UniIR --few-shot 1
+python Qwen-VL/eval_mm/evaluate_vqa.py --test_type ground_truth --few-shot 1
+
+
+
 step1
 python evaluation/eval_acc_f1.py
 
